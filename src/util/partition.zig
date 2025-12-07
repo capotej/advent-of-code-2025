@@ -28,6 +28,8 @@ test "partition by 2" {
     items = p.next(2).?;
     try std.testing.expectEqual('1', items[0]);
     try std.testing.expectEqual('2', items[1]);
+    const other_items = p.next(1);
+    try std.testing.expect(other_items == null);
 }
 
 test "partition 1" {
@@ -41,6 +43,8 @@ test "partition 1" {
     try std.testing.expectEqual('1', items[0]);
     items = p.next(1).?;
     try std.testing.expectEqual('2', items[0]);
+    const other_items = p.next(1);
+    try std.testing.expect(other_items == null);
 }
 
 test "partition 4" {
@@ -51,6 +55,8 @@ test "partition 4" {
     try std.testing.expectEqual('3', items[1]);
     try std.testing.expectEqual('1', items[2]);
     try std.testing.expectEqual('2', items[3]);
+    const other_items = p.next(1);
+    try std.testing.expect(other_items == null);
 }
 
 test "partition leftover" {
@@ -62,6 +68,8 @@ test "partition leftover" {
     items = p.next(10).?;
     try std.testing.expectEqual('1', items[0]);
     try std.testing.expectEqual(1, items.len);
+    const other_items = p.next(1);
+    try std.testing.expect(other_items == null);
 }
 
 test "partition null" {
