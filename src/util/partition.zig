@@ -10,7 +10,6 @@ const PartitionIterator = struct {
         if (self.returned < self.input.len and end > self.input.len) {
             end = self.input.len;
         }
-        std.debug.print("\n\n***\nN:{d}, self.index:{d}, end:{d}, len:{d}\n", .{ N, self.index, end, self.input.len });
         if (end > self.input.len) return null;
         const slice = self.input[self.index..end];
         self.index += N;
