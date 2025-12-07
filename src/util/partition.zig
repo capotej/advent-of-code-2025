@@ -1,11 +1,11 @@
 const std = @import("std");
 
-const PartitionIterator = struct {
+pub const PartitionIterator = struct {
     input: []const u8,
     index: usize = 0,
     returned: u64 = 0,
 
-    fn next(self: *PartitionIterator, comptime N: u8) ?[]const u8 {
+    pub fn next(self: *PartitionIterator, comptime N: u8) ?[]const u8 {
         var end = self.index + N;
         if (self.returned < self.input.len and end > self.input.len) {
             end = self.input.len;
