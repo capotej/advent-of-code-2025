@@ -1,6 +1,6 @@
 const std = @import("std");
-const day1 = @import("day1/day1-part2.zig");
+const day2 = @import("day2/day2.zig");
 
 pub fn main() !void {
-    try day1.run("src/day1/part1-input.txt");
+    try day2.run("src/day2/part1-input.txt");
 }

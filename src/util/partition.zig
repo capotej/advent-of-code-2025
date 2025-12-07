@@ -3,12 +3,18 @@ const std = @import("std");
 const PartitionIterator = struct {
     input: []const u8,
     index: usize = 0,
+    returned: u64 = 0,
 
     fn next(self: *PartitionIterator, comptime N: u8) ?[]const u8 {
-        std.debug.print("\n\n***\nN:{d}, self.index:{d}\n", .{ N, self.index });
-        const end = self.index + N;
+        var end = self.index + N;
+        if (self.returned < self.input.len and end > self.input.len) {
+            end = self.input.len;
+        }
+        std.debug.print("\n\n***\nN:{d}, self.index:{d}, end:{d}, len:{d}\n", .{ N, self.index, end, self.input.len });
+        if (end > self.input.len) return null;
         const slice = self.input[self.index..end];
         self.index += N;
+        self.returned += slice.len;
         return slice;
     }
 };
@@ -55,7 +61,7 @@ test "partition leftover" {
     try std.testing.expectEqual('3', items[1]);
     items = p.next(10).?;
     try std.testing.expectEqual('1', items[0]);
-    // try std.testing.expectEqual(1, items.len);
+    try std.testing.expectEqual(1, items.len);
 }
 
 test "partition null" {
